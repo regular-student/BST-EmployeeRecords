@@ -1,20 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct {
-	int matricula;
-	char nome[100];
-	char cargo[100];
-	double salario;
-} Funcionario;
-
-typedef struct No {
-	Funcionario *funcionario;
-	struct No *ponteiro_esquerda;
-	struct No *ponteiro_direita;
-} No;
-
+#include "arvore.h"
 //Le os dados de um funcionario e atribui a um struct Funcionario
 void cadastro_funcionario( Funcionario *funcionario) {
 	char nome[100], cargo[100];
@@ -102,44 +86,4 @@ Funcionario* buscar_matricula(No *raiz, int matricula) {
 	} else {
 		return buscar_matricula(raiz->ponteiro_direita, matricula);
 	}
-}
-
-int main() {
-
-	No *no_raiz = NULL;
-	int tamanho = 16; //valor fixo apenas para testes
-
-	for (int i = 0; i < tamanho; i++) {
-
-		Funcionario *funcionario = malloc(sizeof(Funcionario));
-
-		cadastro_funcionario(funcionario);
-
-		inserir_no(&no_raiz, funcionario);
-
-	}
-
-	int matricula_busca;
-	Funcionario *func_encontrado;
-
-	printf("Digite a matricula: ");
-	scanf("%i", &matricula_busca);
-
-	func_encontrado = buscar_matricula(no_raiz, matricula_busca);
-
-	//Com o ponteiro que a função buscar_matricula retorna, nós temos todos os dados do nó:
-	if (func_encontrado != NULL) {
-	     printf("\nDados do funcionario\n");
-	     printf("Numero da Matricula: %d\n", func_encontrado->matricula);
-	     printf("Nome: %s\n", func_encontrado->nome);
-	     printf("Cargo: %s\n", func_encontrado->cargo);
-	     printf("Salario: %.2f\n", func_encontrado->salario);
-	} else {
-	     printf("Funcionario %d nao encontrado.\n", matricula_busca);
-	}
-
-    in_ordem(no_raiz);
-	liberar_arvore(no_raiz);
-
-	return 0;
 }
