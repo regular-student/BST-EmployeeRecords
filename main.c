@@ -8,7 +8,7 @@
 int main() {
 
 	No *no_raiz = NULL;
-	int tamanho = 16; //valor fixo apenas para testes
+	int tamanho = 2; //valor fixo apenas para testes
 
 	for (int i = 0; i < tamanho; i++) {
 

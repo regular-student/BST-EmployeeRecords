@@ -27,5 +27,6 @@ void inserir_no(No **no, Funcionario *funcionario);
 void in_ordem(No *no);
 void liberar_arvore(No *no);
 Funcionario* buscar_matricula(No *raiz, int matricula);
+void atualizar_funcionario(No *raiz, int matricula);
 
 #endif

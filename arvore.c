@@ -87,3 +87,27 @@ Funcionario* buscar_matricula(No *raiz, int matricula) {
 		return buscar_matricula(raiz->ponteiro_direita, matricula);
 	}
 }
+
+void atualizar_funcionario(No *raiz, int matricula) {
+	Funcionario *func = buscar_matricula(raiz, matricula);
+
+	if (func != NULL) {
+		printf("\nAtualizando os dados •••");
+		
+		printf("\nNome anterior\t%s ", func->nome);
+		printf("\nNovo nome: ");
+		scanf("%s", func->nome);
+
+		printf("\nCargo anterior\t%s ", func->cargo);
+		printf("\nNovo cargo: ");
+		scanf("%s", func->cargo);
+
+		printf("\nSalario anterior\t%.2lf ", func->salario);
+		printf("\nNovo salário: ");
+		scanf("%lf", &func->salario);
+
+		printf("\n••• Dados atualizados");
+	} else {
+		printf("\nFuncionário não foi encontardo...");
+	}
+}
