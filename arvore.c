@@ -89,6 +89,7 @@ Funcionario* buscar_matricula(No *raiz, int matricula) {
 }
 
 void atualizar_funcionario(No *raiz, int matricula) {
+	//traz o nó do funcionário reutilizando o método anterior
 	Funcionario *func = buscar_matricula(raiz, matricula);
 
 	if (func != NULL) {

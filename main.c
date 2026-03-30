@@ -2,45 +2,82 @@
 #include <stdlib.h>
 #include <string.h>
 
-//header
+// header
 #include "arvore.h"
 
 int main() {
+  int opcao = -1;
+  No *no_raiz = NULL;
+  int matricula_busca;
+  Funcionario *func_encontrado;
 
-	No *no_raiz = NULL;
-	int tamanho = 2; //valor fixo apenas para testes
+  //O código usa %s, ele só aceita 1 string por vez, escrever 2 vai quebrar o código... 
+  //exemplo de cadastro: nome = joão 
 
-	for (int i = 0; i < tamanho; i++) {
+  //menu - autoexplicativo - organização do código
+  do {
+    printf("\nMenu •••");
+    printf("\n1 - Cadastrar Funcionario");
+    printf("\n2 - Buscar Funcionario");
+    printf("\n3 - Listar");
+    printf("\n4 - Atualizar Dados");
+    printf("\n0 - Sair");
+    printf("\nEscolha uma opcao: ");
+    scanf("%i", &opcao);
 
-		Funcionario *funcionario = malloc(sizeof(Funcionario));
+    switch (opcao) {
+    case 1: {
+      Funcionario *funcionario = malloc(sizeof(Funcionario));
+      cadastro_funcionario(funcionario);
+      inserir_no(&no_raiz, funcionario); 
 
-		cadastro_funcionario(funcionario);
+      break;
+    }
+    case 2:
+      printf("\nDigite a matricula para busca: ");
+      scanf("%d", &matricula_busca);
+      func_encontrado = buscar_matricula(no_raiz, matricula_busca); //
 
-		inserir_no(&no_raiz, funcionario);
+      if (func_encontrado != NULL) {
+        printf("\nDados do funcionario\n");
+        printf("Numero da Matricula: %d\n", func_encontrado->matricula);
+        printf("Nome: %s\n", func_encontrado->nome);
+        printf("Cargo: %s\n", func_encontrado->cargo);
+        printf("Salario: %.2f\n", func_encontrado->salario);
+      } else {
+        printf("Funcionario %d nao encontrado.\n", matricula_busca);
+      }
+      break;
 
-	}
+    case 3:
+      printf("\n••• Lista de Funcionarios");
+      in_ordem(no_raiz);
+      break;
 
-	int matricula_busca;
-	Funcionario *func_encontrado;
+    case 4:
+      printf("\nMatricula para atualizar: ");
+      scanf("%d", &matricula_busca);
+      atualizar_funcionario(no_raiz, matricula_busca);
 
-	printf("Digite a matricula: ");
-	scanf("%i", &matricula_busca);
+       if (func_encontrado != NULL) {
+        printf("\nDados do funcionario\n");
+        printf("Numero da Matricula: %d\n", func_encontrado->matricula);
+        printf("Nome: %s\n", func_encontrado->nome);
+        printf("Cargo: %s\n", func_encontrado->cargo);
+        printf("Salario: %.2f\n", func_encontrado->salario);
+      }
+      
+      break;
 
-	func_encontrado = buscar_matricula(no_raiz, matricula_busca);
+    case 0:
+      printf("\nSaindo•-•-•\n");
+      liberar_arvore(no_raiz); 
+      break;
 
-	//Com o ponteiro que a função buscar_matricula retorna, nós temos todos os dados do nó:
-	if (func_encontrado != NULL) {
-	     printf("\nDados do funcionario\n");
-	     printf("Numero da Matricula: %d\n", func_encontrado->matricula);
-	     printf("Nome: %s\n", func_encontrado->nome);
-	     printf("Cargo: %s\n", func_encontrado->cargo);
-	     printf("Salario: %.2f\n", func_encontrado->salario);
-	} else {
-	     printf("Funcionario %d nao encontrado.\n", matricula_busca);
-	}
+    default:
+      printf("\nOpcao invalida!\n");
+    }
+  } while (opcao != 0);
 
-    in_ordem(no_raiz);
-	liberar_arvore(no_raiz);
-
-	return 0;
+  return 0;
 }
